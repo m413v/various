@@ -5,11 +5,15 @@ web:
   environment:
     GITLAB_OMNIBUS_CONFIG: |
       external_url 'https://gitlab.local'
+      nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlab.local.crt"
+      nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlab.local.key"
+      registry_nginx['ssl_certificate'] = "/etc/gitlab/ssl/gitlab.local.crt"
+      registry_nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/gitlab.local.key"
   ports:
     - '8080:80'
     - '8443:443'
     - '2222:22'
   volumes:
-    - '/srv/gitlab/config:/etc/gitlab'
-    - '/srv/gitlab/logs:/var/log/gitlab'
-    - '/srv/gitlab/data:/var/opt/gitlab'
+    - './srv/gitlab/config:/etc/gitlab'
+    - './srv/gitlab/logs:/var/log/gitlab'
+    - './srv/gitlab/data:/var/opt/gitlab'
